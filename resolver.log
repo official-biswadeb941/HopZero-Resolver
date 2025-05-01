@@ -1,0 +1,26 @@
+[HopZero] 2025/05/01 23:24:38 Resolving AAAA records...
+[HopZero] 2025/05/01 23:24:38 2404:6800:4009:814::200e
+[HopZero] 2025/05/01 23:26:19 Resolving AAAA records...
+[HopZero] 2025/05/01 23:26:19 2404:6800:4009:814::200e
+[HopZero] 2025/05/01 23:26:32 Resolving A records...
+[HopZero] 2025/05/01 23:26:32 142.250.183.110
+[HopZero] 2025/05/01 23:38:24 SOA record: Not supported in Go's net package. Use github.com/miekg/dns or similar.
+[HopZero] 2025/05/01 23:38:34 Resolving CNAME record...
+[HopZero] 2025/05/01 23:38:34 CNAME: www.google.com.
+[HopZero] 2025/05/01 23:49:12 SOA record for google.com :
+[HopZero] 2025/05/01 23:49:12 Primary NS: ns1.google.com.
+[HopZero] 2025/05/01 23:49:12 Admin Email: dns-admin.google.com.
+[HopZero] 2025/05/01 23:49:12 Serial: 753095765
+[HopZero] 2025/05/01 23:49:12 Refresh: 900
+[HopZero] 2025/05/01 23:49:12 Retry: 900
+[HopZero] 2025/05/01 23:49:12 Expire: 1800
+[HopZero] 2025/05/01 23:49:12 Minimum TTL: 60
+[HopZero] 2025/05/01 23:51:03 Resolving SOA record for domain: google.com
+[HopZero] 2025/05/01 23:51:03 SOA Record for google.com:
+[HopZero] 2025/05/01 23:51:03   Primary NS: ns1.google.com.
+[HopZero] 2025/05/01 23:51:03   Admin Email: dns-admin.google.com.
+[HopZero] 2025/05/01 23:51:03   Serial: 753095765
+[HopZero] 2025/05/01 23:51:03   Refresh: 900
+[HopZero] 2025/05/01 23:51:03   Retry: 900
+[HopZero] 2025/05/01 23:51:03   Expire: 1800
+[HopZero] 2025/05/01 23:51:03   Minimum TTL: 60
