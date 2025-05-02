@@ -1,4 +1,4 @@
-module github.official-biswadeb941/HopZero
+module github.com/official-biswadeb941/HopZero
 
 go 1.24.2
 

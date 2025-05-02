@@ -24,3 +24,193 @@
 [HopZero] 2025/05/01 23:51:03   Retry: 900
 [HopZero] 2025/05/01 23:51:03   Expire: 1800
 [HopZero] 2025/05/01 23:51:03   Minimum TTL: 60
+[HopZero] 2025/05/02 11:15:44 Resolving A records...
+[HopZero] 2025/05/02 11:15:44 142.251.221.206
+[HopZero] 2025/05/02 11:15:59 Resolving CNAME record...
+[HopZero] 2025/05/02 11:15:59 CNAME: google.com.
+[HopZero] 2025/05/02 11:16:10 Resolving MX records...
+[HopZero] 2025/05/02 11:16:11 smtp.google.com. (Pref: 10)
+[HopZero] 2025/05/02 11:16:28 Performing reverse lookup for 1.1.1.1...
+[HopZero] 2025/05/02 11:16:28 one.one.one.one.
+[HopZero] 2025/05/02 11:16:39 Performing reverse lookup for 8.8.8.8...
+[HopZero] 2025/05/02 11:16:39 dns.google.
+[HopZero] 2025/05/02 11:17:12 Resolving A records...
+[HopZero] 2025/05/02 11:17:12 142.251.221.206
+[HopZero] 2025/05/02 11:17:36 Resolving A records...
+[HopZero] 2025/05/02 11:17:36 142.251.221.206
+[HopZero] 2025/05/02 11:18:01 Resolving A records...
+[HopZero] 2025/05/02 11:18:01 Attempt 1 failed: lookup google.com on [::1]:53: read udp [::1]:48308->[::1]:53: read: connection refused
+[HopZero] 2025/05/02 11:18:01 Attempt 2 failed: lookup google.com on [::1]:53: read udp [::1]:35728->[::1]:53: read: connection refused
+[HopZero] 2025/05/02 11:18:01 Attempt 3 failed: lookup google.com on [::1]:53: read udp [::1]:39457->[::1]:53: read: connection refused
+[HopZero] 2025/05/02 11:18:26 Resolving A records...
+[HopZero] 2025/05/02 11:18:26 142.251.221.206
+[HopZero] 2025/05/02 11:18:55 Resolving A records...
+[HopZero] 2025/05/02 11:18:55 142.251.221.206
+[HopZero] 2025/05/02 11:19:01 Resolving A records...
+[HopZero] 2025/05/02 11:19:01 142.251.221.206
+[HopZero] 2025/05/02 11:19:16 Resolving A records...
+[HopZero] 2025/05/02 11:19:16 142.251.221.206
+[HopZero] 2025/05/02 11:19:29 Resolving A records...
+[HopZero] 2025/05/02 11:19:29 142.251.221.206
+[HopZero] 2025/05/02 11:20:01 Resolving A records...
+[HopZero] 2025/05/02 11:20:01 Attempt 1 failed: lookup googkkk.com on 192.168.1.1:53: no such host
+[HopZero] 2025/05/02 11:20:01 Attempt 2 failed: lookup googkkk.com on 192.168.1.1:53: no such host
+[HopZero] 2025/05/02 11:20:01 Attempt 3 failed: lookup googkkk.com on 192.168.1.1:53: no such host
+[HopZero] 2025/05/02 11:20:14 Performing reverse lookup for 8.8.8.9...
+[HopZero] 2025/05/02 11:20:14 Attempt 1 failed: lookup 8.8.8.9: no such host
+[HopZero] 2025/05/02 11:20:14 Attempt 2 failed: lookup 8.8.8.9: no such host
+[HopZero] 2025/05/02 11:20:14 Attempt 3 failed: lookup 8.8.8.9: no such host
+[HopZero] 2025/05/02 11:20:35 Resolving A records...
+[HopZero] 2025/05/02 11:20:35 142.251.221.206
+[HopZero] 2025/05/02 11:57:36 Resolving A records...
+[HopZero] 2025/05/02 11:57:36 23.192.228.80
+[HopZero] 2025/05/02 11:57:36 23.215.0.138
+[HopZero] 2025/05/02 11:57:36 23.215.0.136
+[HopZero] 2025/05/02 11:57:36 23.192.228.84
+[HopZero] 2025/05/02 11:57:36 96.7.128.175
+[HopZero] 2025/05/02 11:57:36 96.7.128.198
+[HopZero] 2025/05/02 11:57:36 Resolving MX records...
+[HopZero] 2025/05/02 11:57:36 . (Pref: 0)
+[HopZero] 2025/05/02 11:57:36 Performing reverse lookup for 8.8.8.8...
+[HopZero] 2025/05/02 11:57:36 dns.google.
+[HopZero] 2025/05/02 11:57:36 Resolving A records...
+[HopZero] 2025/05/02 11:57:36 23.192.228.84
+[HopZero] 2025/05/02 11:57:36 23.192.228.80
+[HopZero] 2025/05/02 11:57:36 23.215.0.138
+[HopZero] 2025/05/02 11:57:36 96.7.128.175
+[HopZero] 2025/05/02 11:57:36 96.7.128.198
+[HopZero] 2025/05/02 11:57:36 23.215.0.136
+[HopZero] 2025/05/02 11:57:36 Resolving A records...
+[HopZero] 2025/05/02 11:57:36 96.7.128.175
+[HopZero] 2025/05/02 11:57:36 23.215.0.136
+[HopZero] 2025/05/02 11:57:36 23.192.228.84
+[HopZero] 2025/05/02 11:57:36 23.192.228.80
+[HopZero] 2025/05/02 11:57:36 23.215.0.138
+[HopZero] 2025/05/02 11:57:36 96.7.128.198
+[HopZero] 2025/05/02 11:57:36 Resolving A records...
+[HopZero] 2025/05/02 11:57:36 96.7.128.175
+[HopZero] 2025/05/02 11:57:36 23.215.0.138
+[HopZero] 2025/05/02 11:57:36 23.215.0.136
+[HopZero] 2025/05/02 11:57:36 23.192.228.80
+[HopZero] 2025/05/02 11:57:36 23.192.228.84
+[HopZero] 2025/05/02 11:57:36 96.7.128.198
+[HopZero] 2025/05/02 11:59:18 Resolving A records...
+[HopZero] 2025/05/02 11:59:18 142.251.222.174
+[HopZero] 2025/05/02 11:59:18 Resolving MX records...
+[HopZero] 2025/05/02 11:59:18 smtp.google.com. (Pref: 10)
+[HopZero] 2025/05/02 11:59:18 Performing reverse lookup for 8.8.8.8...
+[HopZero] 2025/05/02 11:59:18 dns.google.
+[HopZero] 2025/05/02 11:59:18 Resolving A records...
+[HopZero] 2025/05/02 11:59:18 142.251.222.174
+[HopZero] 2025/05/02 11:59:18 Resolving A records...
+[HopZero] 2025/05/02 11:59:18 142.251.222.174
+[HopZero] 2025/05/02 11:59:18 Resolving A records...
+[HopZero] 2025/05/02 11:59:18 142.251.222.174
+[HopZero] 2025/05/02 12:00:26 Resolving A records...
+[HopZero] 2025/05/02 12:00:26 142.251.222.174
+[HopZero] 2025/05/02 12:07:43 Resolving A records...
+[HopZero] 2025/05/02 12:07:43 23.215.0.136
+[HopZero] 2025/05/02 12:07:43 96.7.128.175
+[HopZero] 2025/05/02 12:07:43 23.192.228.84
+[HopZero] 2025/05/02 12:07:43 96.7.128.198
+[HopZero] 2025/05/02 12:07:43 23.192.228.80
+[HopZero] 2025/05/02 12:07:43 23.215.0.138
+[HopZero] 2025/05/02 12:07:43 Resolving MX records...
+[HopZero] 2025/05/02 12:07:43 . (Pref: 0)
+[HopZero] 2025/05/02 12:07:43 Performing reverse lookup for 8.8.8.8...
+[HopZero] 2025/05/02 12:07:43 dns.google.
+[HopZero] 2025/05/02 12:07:43 Resolving A records...
+[HopZero] 2025/05/02 12:07:43 96.7.128.198
+[HopZero] 2025/05/02 12:07:43 23.192.228.80
+[HopZero] 2025/05/02 12:07:43 23.215.0.138
+[HopZero] 2025/05/02 12:07:43 23.192.228.84
+[HopZero] 2025/05/02 12:07:43 23.215.0.136
+[HopZero] 2025/05/02 12:07:43 96.7.128.175
+[HopZero] 2025/05/02 12:07:44 Resolving A records...
+[HopZero] 2025/05/02 12:07:44 23.215.0.136
+[HopZero] 2025/05/02 12:07:44 23.192.228.84
+[HopZero] 2025/05/02 12:07:44 96.7.128.175
+[HopZero] 2025/05/02 12:07:44 96.7.128.198
+[HopZero] 2025/05/02 12:07:44 23.192.228.80
+[HopZero] 2025/05/02 12:07:44 23.215.0.138
+[HopZero] 2025/05/02 12:07:44 Resolving A records...
+[HopZero] 2025/05/02 12:07:44 23.215.0.136
+[HopZero] 2025/05/02 12:07:44 96.7.128.198
+[HopZero] 2025/05/02 12:07:44 23.192.228.80
+[HopZero] 2025/05/02 12:07:44 23.192.228.84
+[HopZero] 2025/05/02 12:07:44 96.7.128.175
+[HopZero] 2025/05/02 12:07:44 23.215.0.138
+[HopZero] 2025/05/02 12:07:44 Resolving A records...
+[HopZero] 2025/05/02 12:07:44 23.215.0.138
+[HopZero] 2025/05/02 12:07:44 96.7.128.175
+[HopZero] 2025/05/02 12:07:44 23.192.228.80
+[HopZero] 2025/05/02 12:07:44 23.215.0.136
+[HopZero] 2025/05/02 12:07:44 96.7.128.198
+[HopZero] 2025/05/02 12:07:44 23.192.228.84
+[HopZero] 2025/05/02 12:10:43 Resolving A records...
+[HopZero] 2025/05/02 12:10:43 23.192.228.80
+[HopZero] 2025/05/02 12:10:43 96.7.128.198
+[HopZero] 2025/05/02 12:10:43 96.7.128.175
+[HopZero] 2025/05/02 12:10:43 23.215.0.138
+[HopZero] 2025/05/02 12:10:43 23.215.0.136
+[HopZero] 2025/05/02 12:10:43 23.192.228.84
+[HopZero] 2025/05/02 12:10:43 Resolving MX records...
+[HopZero] 2025/05/02 12:10:43 . (Pref: 0)
+[HopZero] 2025/05/02 12:10:43 Resolving CNAME record...
+[HopZero] 2025/05/02 12:10:43 CNAME: www.example.com-v4.edgesuite.net.
+[HopZero] 2025/05/02 12:10:43 Resolving TXT records...
+[HopZero] 2025/05/02 12:10:44 _k2n1y4vw3qtb4skdx9e7dxt97qrmmq9
+[HopZero] 2025/05/02 12:10:44 v=spf1 -all
+[HopZero] 2025/05/02 12:10:44 Resolving NS records...
+[HopZero] 2025/05/02 12:10:44 a.iana-servers.net.
+[HopZero] 2025/05/02 12:10:44 b.iana-servers.net.
+[HopZero] 2025/05/02 12:10:44 Performing reverse lookup for 8.8.8.8...
+[HopZero] 2025/05/02 12:10:44 dns.google.
+[HopZero] 2025/05/02 12:10:44 Resolving A records...
+[HopZero] 2025/05/02 12:10:44 96.7.128.198
+[HopZero] 2025/05/02 12:10:44 23.192.228.84
+[HopZero] 2025/05/02 12:10:44 23.215.0.138
+[HopZero] 2025/05/02 12:10:44 23.192.228.80
+[HopZero] 2025/05/02 12:10:44 23.215.0.136
+[HopZero] 2025/05/02 12:10:44 96.7.128.175
+[HopZero] 2025/05/02 12:10:44 Resolving A records...
+[HopZero] 2025/05/02 12:10:44 96.7.128.175
+[HopZero] 2025/05/02 12:10:44 23.215.0.136
+[HopZero] 2025/05/02 12:10:44 23.192.228.84
+[HopZero] 2025/05/02 12:10:44 23.192.228.80
+[HopZero] 2025/05/02 12:10:44 23.215.0.138
+[HopZero] 2025/05/02 12:10:44 96.7.128.198
+[HopZero] 2025/05/02 12:10:44 Resolving A records...
+[HopZero] 2025/05/02 12:10:44 23.215.0.138
+[HopZero] 2025/05/02 12:10:44 23.215.0.136
+[HopZero] 2025/05/02 12:10:44 23.192.228.80
+[HopZero] 2025/05/02 12:10:44 23.192.228.84
+[HopZero] 2025/05/02 12:10:44 96.7.128.198
+[HopZero] 2025/05/02 12:10:44 96.7.128.175
+[HopZero] 2025/05/02 12:10:45 Resolving A records...
+[HopZero] 2025/05/02 12:10:45 23.192.228.84
+[HopZero] 2025/05/02 12:10:45 96.7.128.175
+[HopZero] 2025/05/02 12:10:45 96.7.128.198
+[HopZero] 2025/05/02 12:10:45 23.192.228.80
+[HopZero] 2025/05/02 12:10:45 23.215.0.136
+[HopZero] 2025/05/02 12:10:45 23.215.0.138
+[HopZero] 2025/05/02 12:10:45 Unsupported record type: FAKE
+[HopZero] 2025/05/02 12:10:45 Resolving A records...
+[HopZero] 2025/05/02 12:10:45 Attempt 1 failed: lookup invalid_domain_xyz_!@#: no such host
+[HopZero] 2025/05/02 12:10:45 Attempt 2 failed: lookup invalid_domain_xyz_!@#: no such host
+[HopZero] 2025/05/02 12:10:45 Attempt 3 failed: lookup invalid_domain_xyz_!@#: no such host
+[HopZero] 2025/05/02 12:10:45 Performing reverse lookup for 999.999.999.999...
+[HopZero] 2025/05/02 12:10:45 Attempt 1 failed: lookup 999.999.999.999: invalid address
+[HopZero] 2025/05/02 12:10:45 Attempt 2 failed: lookup 999.999.999.999: invalid address
+[HopZero] 2025/05/02 12:10:45 Attempt 3 failed: lookup 999.999.999.999: invalid address
+[HopZero] 2025/05/02 12:10:45 Performing reverse lookup for 1.1.1.1...
+[HopZero] 2025/05/02 12:10:45 one.one.one.one.
+[HopZero] 2025/05/02 12:10:45 Resolving A records...
+[HopZero] 2025/05/02 12:10:45 23.192.228.84
+[HopZero] 2025/05/02 12:10:45 96.7.128.198
+[HopZero] 2025/05/02 12:10:45 23.192.228.80
+[HopZero] 2025/05/02 12:10:45 96.7.128.175
+[HopZero] 2025/05/02 12:10:45 23.215.0.136
+[HopZero] 2025/05/02 12:10:45 23.215.0.138
+[HopZero] 2025/05/02 12:10:45 Performing reverse lookup for 1.1.1.1...
+[HopZero] 2025/05/02 12:10:45 one.one.one.one.

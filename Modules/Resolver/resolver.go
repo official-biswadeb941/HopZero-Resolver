@@ -3,11 +3,23 @@ package resolver
 import (
 	"context"
 	"net"
-	"time"
-	"github.com/miekg/dns"
 	"strings"
-    "github.official-biswadeb941/HopZero/Modules/Logs"
+	"sync"
+	"time"
+
+	"github.com/miekg/dns"
+	logutil "github.com/official-biswadeb941/HopZero/Modules/Logs"
 )
+
+type cacheEntry struct {
+	Record interface{}
+	Expiry time.Time
+}
+
+var dnsCache = struct {
+	sync.RWMutex
+	data map[string]cacheEntry
+}{data: make(map[string]cacheEntry)}
 
 // getResolver returns a custom DNS resolver using a specific DNS server, or the system resolver by default.
 func getResolver(dnsServer string) *net.Resolver {
@@ -30,6 +42,32 @@ func getResolver(dnsServer string) *net.Resolver {
 	}
 }
 
+// Check cache and return record if it's still valid
+func getCachedRecord(domain, recordType string) (interface{}, bool) {
+	cacheKey := domain + ":" + recordType
+
+	// Lock for reading
+	dnsCache.RLock()
+	defer dnsCache.RUnlock()
+
+	entry, exists := dnsCache.data[cacheKey]
+	if !exists || time.Now().After(entry.Expiry) {
+		return nil, false // Cache miss or expired cache
+	}
+	return entry.Record, true
+}
+
+// Cache the result
+func setCache(domain, recordType string, record interface{}) {
+	cacheKey := domain + ":" + recordType
+	dnsCache.Lock()
+	defer dnsCache.Unlock()
+	dnsCache.data[cacheKey] = cacheEntry{
+		Record: record,
+		Expiry: time.Now().Add(5 * time.Minute), // Cache for 5 minutes
+	}
+}
+
 // withTimeoutAndRetry runs DNS lookups with timeout and retry support.
 func withTimeoutAndRetry(attempts int, timeout time.Duration, fn func(ctx context.Context) error) error {
 	var lastErr error
@@ -47,22 +85,22 @@ func withTimeoutAndRetry(attempts int, timeout time.Duration, fn func(ctx contex
 }
 
 // ResolveRecord resolves various DNS record types
-func ResolveRecord(domain string, recordType string, dnsServer string) {
+func ResolveRecord(domain string, recordType string, dnsServer string, timeout int, debug bool, cache bool) {
 	resolver := getResolver(dnsServer)
 
 	switch recordType {
 	case "A":
-		resolveA(domain, resolver)
+		resolveA(domain, resolver, cache)
 	case "AAAA":
-		resolveAAAA(domain, resolver)
+		resolveAAAA(domain, resolver, cache)
 	case "MX":
-		resolveMX(domain, resolver)
+		resolveMX(domain, resolver, cache)
 	case "TXT":
-		resolveTXT(domain, resolver)
+		resolveTXT(domain, resolver, cache)
 	case "NS":
-		resolveNS(domain, resolver)
+		resolveNS(domain, resolver, cache)
 	case "CNAME":
-		resolveCNAME(domain, resolver)
+		resolveCNAME(domain, resolver, cache)
 	case "SOA":
 		resolveSOA(domain, dnsServer)
 	default:
@@ -70,43 +108,84 @@ func ResolveRecord(domain string, recordType string, dnsServer string) {
 	}
 }
 
-// A record resolver
-func resolveA(domain string, r *net.Resolver) {
+// A record resolver with caching
+func resolveA(domain string, r *net.Resolver, cache bool) {
 	logutil.Logger.Println("Resolving A records...")
+
+	// Check cache first
+	if cache {
+		if cached, found := getCachedRecord(domain, "A"); found {
+			logutil.Logger.Println("Cache hit for A record:", cached)
+			return
+		}
+	}
+
 	withTimeoutAndRetry(3, 3*time.Second, func(ctx context.Context) error {
 		ips, err := r.LookupIPAddr(ctx, domain)
 		if err != nil {
 			return err
 		}
+		var ipsToStore []net.IP
 		for _, ip := range ips {
 			if ip.IP.To4() != nil {
+				ipsToStore = append(ipsToStore, ip.IP)
 				logutil.Logger.Println(ip.IP)
 			}
+		}
+
+		// Cache the result
+		if cache && len(ipsToStore) > 0 {
+			setCache(domain, "A", ipsToStore)
 		}
 		return nil
 	})
 }
 
-// AAAA record resolver
-func resolveAAAA(domain string, r *net.Resolver) {
+// AAAA record resolver with caching
+func resolveAAAA(domain string, r *net.Resolver, cache bool) {
 	logutil.Logger.Println("Resolving AAAA records...")
+
+	// Check cache first
+	if cache {
+		if cached, found := getCachedRecord(domain, "AAAA"); found {
+			logutil.Logger.Println("Cache hit for AAAA record:", cached)
+			return
+		}
+	}
+
 	withTimeoutAndRetry(3, 3*time.Second, func(ctx context.Context) error {
 		ips, err := r.LookupIPAddr(ctx, domain)
 		if err != nil {
 			return err
 		}
+		var ipsToStore []net.IP
 		for _, ip := range ips {
 			if ip.IP.To16() != nil && ip.IP.To4() == nil {
+				ipsToStore = append(ipsToStore, ip.IP)
 				logutil.Logger.Println(ip.IP)
 			}
+		}
+
+		// Cache the result
+		if cache && len(ipsToStore) > 0 {
+			setCache(domain, "AAAA", ipsToStore)
 		}
 		return nil
 	})
 }
 
-// MX record resolver
-func resolveMX(domain string, r *net.Resolver) {
+// MX record resolver with caching
+func resolveMX(domain string, r *net.Resolver, cache bool) {
 	logutil.Logger.Println("Resolving MX records...")
+
+	// Check cache first
+	if cache {
+		if cached, found := getCachedRecord(domain, "MX"); found {
+			logutil.Logger.Println("Cache hit for MX record:", cached)
+			return
+		}
+	}
+
 	withTimeoutAndRetry(3, 3*time.Second, func(ctx context.Context) error {
 		mx, err := r.LookupMX(ctx, domain)
 		if err != nil {
@@ -115,13 +194,27 @@ func resolveMX(domain string, r *net.Resolver) {
 		for _, record := range mx {
 			logutil.Logger.Printf("%s (Pref: %d)", record.Host, record.Pref)
 		}
+
+		// Cache the result
+		if cache && len(mx) > 0 {
+			setCache(domain, "MX", mx)
+		}
 		return nil
 	})
 }
 
-// TXT record resolver
-func resolveTXT(domain string, r *net.Resolver) {
+// TXT record resolver with caching
+func resolveTXT(domain string, r *net.Resolver, cache bool) {
 	logutil.Logger.Println("Resolving TXT records...")
+
+	// Check cache first
+	if cache {
+		if cached, found := getCachedRecord(domain, "TXT"); found {
+			logutil.Logger.Println("Cache hit for TXT record:", cached)
+			return
+		}
+	}
+
 	withTimeoutAndRetry(3, 3*time.Second, func(ctx context.Context) error {
 		txts, err := r.LookupTXT(ctx, domain)
 		if err != nil {
@@ -130,13 +223,27 @@ func resolveTXT(domain string, r *net.Resolver) {
 		for _, txt := range txts {
 			logutil.Logger.Println(txt)
 		}
+
+		// Cache the result
+		if cache && len(txts) > 0 {
+			setCache(domain, "TXT", txts)
+		}
 		return nil
 	})
 }
 
-// NS record resolver
-func resolveNS(domain string, r *net.Resolver) {
+// NS record resolver with caching
+func resolveNS(domain string, r *net.Resolver, cache bool) {
 	logutil.Logger.Println("Resolving NS records...")
+
+	// Check cache first
+	if cache {
+		if cached, found := getCachedRecord(domain, "NS"); found {
+			logutil.Logger.Println("Cache hit for NS record:", cached)
+			return
+		}
+	}
+
 	withTimeoutAndRetry(3, 3*time.Second, func(ctx context.Context) error {
 		ns, err := r.LookupNS(ctx, domain)
 		if err != nil {
@@ -145,24 +252,43 @@ func resolveNS(domain string, r *net.Resolver) {
 		for _, n := range ns {
 			logutil.Logger.Println(n.Host)
 		}
+
+		// Cache the result
+		if cache && len(ns) > 0 {
+			setCache(domain, "NS", ns)
+		}
 		return nil
 	})
 }
 
-// CNAME record resolver
-func resolveCNAME(domain string, r *net.Resolver) {
+// CNAME record resolver with caching
+func resolveCNAME(domain string, r *net.Resolver, cache bool) {
 	logutil.Logger.Println("Resolving CNAME record...")
+
+	// Check cache first
+	if cache {
+		if cached, found := getCachedRecord(domain, "CNAME"); found {
+			logutil.Logger.Println("Cache hit for CNAME record:", cached)
+			return
+		}
+	}
+
 	withTimeoutAndRetry(3, 3*time.Second, func(ctx context.Context) error {
 		cname, err := r.LookupCNAME(ctx, domain)
 		if err != nil {
 			return err
 		}
 		logutil.Logger.Println("CNAME:", cname)
+
+		// Cache the result
+		if cache && cname != "" {
+			setCache(domain, "CNAME", cname)
+		}
 		return nil
 	})
 }
 
-// SOA is not supported natively in net package — notify user
+// SOA record resolver (no caching as it's done with raw DNS query)// SOA record resolver (no caching as it's done with raw DNS query)
 func resolveSOA(domain string, dnsServer string) {
 	logutil.Logger.Println("Resolving SOA record for domain:", domain)
 
@@ -178,29 +304,25 @@ func resolveSOA(domain string, dnsServer string) {
 
 	r, _, err := c.Exchange(m, dnsServer)
 	if err != nil {
-		logutil.Logger.Println("Error querying SOA:", err)
+		logutil.Logger.Printf("Error querying DNS server %s: %v", dnsServer, err)
 		return
 	}
 
-	// Print detailed SOA record information
-	for _, ans := range r.Answer {
-		if soa, ok := ans.(*dns.SOA); ok {
-			logutil.Logger.Printf("SOA Record for %s:", domain)
-			logutil.Logger.Printf("  Primary NS: %s", soa.Ns)
-			logutil.Logger.Printf("  Admin Email: %s", soa.Mbox)
-			logutil.Logger.Printf("  Serial: %d", soa.Serial)
-			logutil.Logger.Printf("  Refresh: %d", soa.Refresh)
-			logutil.Logger.Printf("  Retry: %d", soa.Retry)
-			logutil.Logger.Printf("  Expire: %d", soa.Expire)
-			logutil.Logger.Printf("  Minimum TTL: %d", soa.Minttl)
+	if len(r.Answer) > 0 {
+		for _, ans := range r.Answer {
+			if soa, ok := ans.(*dns.SOA); ok {
+				logutil.Logger.Println("SOA:", soa.Ns, soa.Mbox, soa.Serial, soa.Refresh, soa.Retry, soa.Expire, soa.Minttl)
+			}
 		}
+	} else {
+		logutil.Logger.Println("No SOA record found for domain:", domain)
 	}
 }
 
-// ReverseLookup resolves PTR records from IP addresses
-func ReverseLookup(ip string) {
+// ReverseLookup resolves PTR records (reverse DNS lookup)
+func ReverseLookup(ip string, timeout int, debug bool) {
 	logutil.Logger.Printf("Performing reverse lookup for %s...", ip)
-	withTimeoutAndRetry(3, 3*time.Second, func(ctx context.Context) error {
+	withTimeoutAndRetry(3, time.Duration(timeout)*time.Second, func(ctx context.Context) error {
 		names, err := net.DefaultResolver.LookupAddr(ctx, ip)
 		if err != nil {
 			return err

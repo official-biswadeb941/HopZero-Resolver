@@ -5,39 +5,42 @@ import (
 	"os"
 	"strings"
 
-	HelpDesk "github.official-biswadeb941/HopZero/Modules/HelpDesk"
-	logutil "github.official-biswadeb941/HopZero/Modules/Logs"
-	resolver "github.official-biswadeb941/HopZero/Modules/Resolver"
+	HelpDesk "github.com/official-biswadeb941/HopZero/Modules/HelpDesk"
+	logutil "github.com/official-biswadeb941/HopZero/Modules/Logs"
+	resolver "github.com/official-biswadeb941/HopZero/Modules/Resolver"
 )
 
 func main() {
-	// ✅ Initialize logging before anything else
+	// ✅ Initialize logging
 	logutil.Init(true)
 
-	// ✅ Hook help flag to our HelpDesk module
+	// ✅ Hook custom help banner
 	flag.Usage = HelpDesk.ShowUsage
 
-	// ✅ Define flags
+	// ✅ Define command-line flags
 	domain := flag.String("domain", "", "Domain to resolve")
 	recordType := flag.String("type", "A", "DNS record type")
 	reverse := flag.String("reverse", "", "IP for reverse lookup")
-	customDNS := flag.String("dns", "", "Custom DNS server")
+	customDNS := flag.String("dns", "", "Custom DNS server (ip:port or ip)")
+	timeout := flag.Int("timeout", 5, "Timeout for DNS queries in seconds")
+	debug := flag.Bool("debug", false, "Enable debug output")
+	cache := flag.Bool("cache", true, "Enable/disable caching")
 
 	flag.Parse()
 
-	// ✅ Show help if no actionable input is given
+	// ✅ Show help if no actionable flag is provided
 	if *domain == "" && *reverse == "" {
 		HelpDesk.ShowUsage()
 		os.Exit(0)
 	}
 
-	// ✅ Handle forward lookups (A, AAAA, MX, etc.)
+	// ✅ Handle domain resolution
 	if *domain != "" {
-		resolver.ResolveRecord(*domain, strings.ToUpper(*recordType), *customDNS)
+		resolver.ResolveRecord(*domain, strings.ToUpper(*recordType), *customDNS, *timeout, *debug, *cache)
 	}
 
-	// ✅ Handle reverse lookups (PTR)
+	// ✅ Handle reverse lookup
 	if *reverse != "" {
-		resolver.ReverseLookup(*reverse)
+		resolver.ReverseLookup(*reverse, *timeout, *debug)
 	}
 }
